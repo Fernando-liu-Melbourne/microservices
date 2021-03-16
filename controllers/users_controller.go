@@ -30,6 +30,7 @@ func GetUser(response http.ResponseWriter, request *http.Request) {
 	user, applicationError := services.GetUser(uint64(userId))
 	if applicationError != nil {
 		jsonValue, _ = json.Marshal(applicationError)
+		response.WriteHeader(applicationError.StatusCode)
 		response.Write(jsonValue)
 		return
 	}
